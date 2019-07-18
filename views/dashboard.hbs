@@ -384,7 +384,13 @@
 
         getUserByEmail(email);
         console.log(email);
-        displayUserStats();
+
+        setTimeout(function(){ 
+
+             displayUserStats();
+
+               }, 1000);
+        
 
         $(".routine").click(function(){
             routineIndex = $(this).attr("data-index");

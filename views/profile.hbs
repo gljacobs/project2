@@ -407,7 +407,7 @@
 
 
         var userId;
-        var idFromEmail;
+        var email;
         var initialWeight;
         var initialHeight;
 
@@ -425,23 +425,29 @@
             console.log(email);
 
 
-
         $.get("api/users/email/" + email).
             then(function (data) {
                 console.log("in get user")
                 console.log(data);
                 userId = data.id;
+                console.log(userId);
             });
     };
 
 
+
+
     
-        idFromEmail = JSON.stringify($("#okta-email").text());
-        console.log(idFromEmail);
-        getUserByEmail(idFromEmail);
+        email = JSON.stringify($("#okta-email").text());
+        var index = email.length - 1;
+        email = email.slice(1, index);
+        console.log(email);
+
+        getUserByEmail(email);
         console.log(userId);
 
 
+       setTimeout(function(){ 
 
         getUser(userId, function (data) {
             console.log(data);
@@ -449,11 +455,22 @@
 
 
             $("#portfolioImage").attr("src", data.profilePhoto);
-                // initialWeight = data.weight;
-                // initialHeight = data.height; 
+                initialWeight = data.weight;
+                initialHeight = data.height; 
+                displayUserRoutine(userId);
         });
 
+        $.get("/api/stats/" + userId, function (data) {
+                console.log(data);
+                if(data.length !== 0)
+                    {
+                         displayUserStats();
+                    }
 
+            });
+
+         }, 1000);
+        
 
 
         //Routines Section
@@ -573,7 +590,7 @@
 
         // // updateUserRoutine(routineArr[routineIndex], userId);
 
-        displayUserRoutine(userId);
+  
 
 
 
@@ -646,18 +663,6 @@
 
     //UserStat Section
     // =============================================================
-            initialWeight = 150;
-            initialHeight = 66;
-
-
-              $.get("/api/stats/" + userId, function (data) {
-                console.log(data);
-                if(data.length !== 0)
-                    {
-                         displayUserStats();
-                    }
-
-            });
 
            
 
