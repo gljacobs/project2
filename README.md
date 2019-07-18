@@ -101,6 +101,10 @@ User can update their weight lost and hours spent on a routine and then make a p
 - We definitely had some communication issues in the beginning.  The first couple days we were unsure where to start and did not have a proper standup to decide what everyone was going to work on.  
 Solution - Either meet up in person or have more voice calls.  Be more responsive on slack and messaging and communicate when you're working on something.
 
+3. If a feature isn't working, don't waste to much time trying to figure it out.
+- We found an project that had implemented okta and tried to use what they had with gymate. Merging the files created a lot of problems and we probably spent 2-3 days trying to work out that issue.
+Solution - we should have either not used it or tried a different authentication service after the first couple days of not getting it to work.  
+
 
 
 
