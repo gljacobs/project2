@@ -70,10 +70,29 @@ APP_SECRET=something-random`
 - Buckets and objects are resources, and Amazon S3 provides APIs for you to manage them. You can create a bucket and upload objects using the Amazon S3 API
 
 
-### How it Works
+## How it Works
 
+#### User Login
+
+User creates an account on the signup page and inputs name, email, password, height, weight, and can upload an image. 
+
+#### Choose Routine
+
+User can pick a routine and add it to their current routines.  It will then show up on their profile and the user can edit or add workouts by day.
+
+#### Update Stats and Post
+
+User can update their weight lost and hours spent on a routine and then make a post about the workout.
 
 ### What We Learned
+
+1. Have a more defined MVP and stick to it
+ - Throughout the project we all had different ideas of what we wanted in our MVP and this caused a lot of issues since many of the features conflicted with eachother. 
+ Solution - Have a set MVP and keep to it.  If we come up with other idea, add them to stretch goals and focus on finishing the MVP first. 
+
+2. Communication is important, expecially in the starting stages of the project
+- We definitely had some communication issues in the beginning.  The first couple days we were unsure where to start and did not have a proper standup to decide what everyone was going to work on.  
+Solution - Either meet up in person or have more voice calls.  Be more responsive on slack and messaging and communicate when you're working on something.
 
 
 
