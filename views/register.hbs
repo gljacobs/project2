@@ -169,11 +169,15 @@
 
     <script>
 
-        var buddyId = 1;
+        var buddyId = 2;
         var userId;
-        var UserName = $("#firstname").val();
-        var UserEmail = $("#email").val();
+        var UserName;
+        var UserEmail;
+
         console.log(UserName);
+
+
+
         function getUser(id, cb) {
             $.get("api/users/" + id).
                 then(function (data) {
@@ -181,18 +185,19 @@
                     cb(data)
                 });
         }
+
+
         function addUser(cb) {
             var newUser = {
                 name: UserName,
                 password: 0,
-                username: UserEmail
+                username: UserEmail,
+                weight: weight,
+                height: height,
+                buddyId: buddyId
             };
-
-
-
-
-
             console.log(newUser);
+
             $.post("/api/users/", newUser)
                 .then(function (data) {
                     console.log(data);
@@ -200,9 +205,11 @@
                     userId = data.id;
                     console.log(userId);
                     cb();
-                    alert("Adding user...");
+
                 });
         }
+
+
         function addProfilePic() {
             console.log(userId);
             var user = new FormData();
@@ -236,13 +243,17 @@
             // $('#modal1').modal('open');
             // $('.trigger-modal').modal();
         }
+
+
         $('#submitmodal').click(function (e) {
             e.preventDefault();
-            UserName = $("#firstname").val();
+            UserName = $("#firstname").val() + " " + $("#lastname").val();
             UserEmail = $("#email").val();
-            console.log(UserName);
+            weight = parseInt($("#weight").val());
+            height = parseInt($("#height").val());
+
             addUser(function () {
-                console.log("before settimeout");
+     
                 setTimeout(addProfilePic(), 5000);
             });
             // addUser();

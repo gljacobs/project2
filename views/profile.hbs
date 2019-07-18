@@ -406,7 +406,7 @@
 
 
 
-        var userId = 1;
+        var userId;
         var idFromEmail;
         var initialWeight;
         var initialHeight;
@@ -423,6 +423,9 @@
 
            function getUserByEmail(email) {
             console.log(email);
+
+
+
         $.get("api/users/email/" + email).
             then(function (data) {
                 console.log("in get user")
@@ -435,7 +438,7 @@
     
         idFromEmail = JSON.stringify($("#okta-email").text());
         console.log(idFromEmail);
-        // getUserByEmail(idFromEmail);
+        getUserByEmail(idFromEmail);
         console.log(userId);
 
 
@@ -619,6 +622,17 @@
            if ($(this).prop("checked")=== true)
            {
                 updateUserComplete(true, day);
+                contentToPost = "I worked out today!"
+                var postText = {
+                    content: contentToPost,
+                    userId: userId
+                };
+                $.post("api/posts", postText).
+                    then(function (data) {
+
+                        console.log(data);
+                    });
+
            }
            else
            {

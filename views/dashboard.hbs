@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <nav role="navigation red" class="nav" data-email={{user.profile.email}}>
+    <nav role="navigation red" class="nav">
         <div class="nav-wrapper container">
             <a id="logo-container" href="#" class="brand-logo">
                 <img src="gm-white.png" id="logo">
@@ -42,6 +42,7 @@
     <div class="container" id="main">
 
         <div class="card-panel">
+            <span><h5 id="navi" data-email={{user.profile.email}}>{{user.profile.email}}</h5><span>
             <span class="card-title">Popular Routines</span>
             <div class="carousel">
                 <a class='routine carousel-item' data-index = "0">Starting Strength</a>
@@ -208,11 +209,17 @@
 
 <script>
     var colors = ["red", "yellow", "green", "blue", "orange", "purple"];
-    var idFromEmail;
+    var email;
     var buddyId;
     var routineIndex;
     var selected = false;
-    var userId = 1;
+    var userId;
+
+
+
+
+
+
 
 
 
@@ -227,7 +234,9 @@
     function getUserByEmail(email) {
         $.get("api/users/email/" + email).
             then(function (data) {
+                console.log(data);
                userId  = data.id;
+
             });
     };
 
@@ -307,6 +316,8 @@
             $.get("/api/stats/" + userId, function (data) {
 
                 console.log(data);
+                if(data.length !== 0)
+                {
                 console.log("in display", data);
                 console.log("weight", data[0].weight);
                 console.log("time", data[0].time);
@@ -324,6 +335,7 @@
                 }
 
                 $("#hours").text(hours);
+              }
             });
         }
 
@@ -363,9 +375,15 @@
    
 
     $(document).ready(function () {
-        idFromEmail = JSON.stringify($("#navi").text());
-        // getUserByEmail(idFromEmail);
-        // console.log(idFromEmail);
+        email = JSON.stringify($("#navi").text());
+
+        console.log(email);
+        var index = email.length - 1;
+        email = email.slice(1, index);
+        console.log(email);
+
+        getUserByEmail(email);
+        console.log(email);
         displayUserStats();
 
         $(".routine").click(function(){
@@ -411,8 +429,8 @@
             var postText = {
 
                 content: contentToPost,
-                // userId: idFromEmail,
                 userId: userId
+                // userId: userId
             };
 
 
