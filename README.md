@@ -1,6 +1,8 @@
 # Gymate
 
-- A way to plan your workout routines and meet new friends! Record your time working out and weight loss to see progress and look up popular workout routines.
+A way to plan your workout routines and meet new friends! Record your time working out and weight loss to see progress and look up popular workout routines.
+
+<br>
 
 ### Link to delopyed site
 
@@ -18,13 +20,16 @@ Author : [Megha](https://github.com/meghabprasad)
 
 ### Site Images
 
-<img src="images/wireframess.png" width="600" height="400">
+<img src="images/wireframess.png">
 
-<img src="images/wireframess1.png" width="600" height="400">
+<img src="images/wireframess1.png">
 
-<img src="images/wireframess2.png" width="600" height="400">
+<img src="images/wireframess2.png">
 
-<img src="images/wireframess3.png" width="600" height="600">
+<img src="images/wireframess3.png">
+
+<br>
+
 
 ### Tech Used
 
@@ -34,13 +39,14 @@ Author : [Megha](https://github.com/meghabprasad)
 - Node.js is an open-source, cross-platform JavaScript run-time environment that executes JavaScript code outside of a browser. 
 - Node.js lets developers use JavaScript to write command line tools and for server-side scripting—running scripts server-side to produce dynamic web page content before the page is sent to the user's web browser
 
-3. [MySQL](https://www.mysql.com/)
+3. [MySQL2](https://www.npmjs.com/package/mysql2)
 
-- MySQL (structured query language) is a relational database management system (RDBMS) and is considered one of the worlds most popular open source databases.
+- MySQL (structured query language) is a relational database management system (RDBMS) and is considered one of the worlds most popular open source databases. MySQL2 project is a continuation of MySQL-Native. Protocol parser code was rewritten from scratch and api changed to match popular mysqljs/mysql. 
 
-4. [Sequelize](http://docs.sequelizejs.com/)
+4. [Sequelize/Cli](http://docs.sequelizejs.com/)
 
-- Sequelize is a promise-based Node.js ORM for Postgres, MySQL, MariaDB, SQLite and Microsoft SQL Server. It features solid transaction support, relations, eager and lazy loading, read replication and more.
+- Sequelize is a promise-based Node.js ORM for Postgres, MySQL, MariaDB, SQLite and Microsoft SQL Server. It features solid transaction support, relations, eager and lazy loading, read replication and more. The Sequelize Command Line Interface (CLI) ships support for migrations and project bootstrapping.
+
 
 5. [Express](https://expressjs.com/)
 
@@ -55,14 +61,15 @@ Author : [Megha](https://github.com/meghabprasad)
 - A user authentication service that allows developers to build identity controls into applications, website web services and  devices.
 - Create a file called `.env` in the project root and add the following variables, replacing the values with your own from the previous steps.
 
-`
-HOST_URL=http://localhost:3000
-ORG_URL=https://dev-123456.oktapreview.com
-CLIENT_ID=okta-application-client-id
-CLIENT_SECRET=okta-application-client-secret
-REGISTRATION_TOKEN=okta-registration-api-token
-USER_PROFILE_TOKEN=okta-user-profile-api-token
-APP_SECRET=something-random`
+```
+    HOST_URL=http://localhost:3000
+    ORG_URL=https://dev-123456.oktapreview.com
+    CLIENT_ID=okta-application-client-id
+    CLIENT_SECRET=okta-application-client-secret
+    REGISTRATION_TOKEN=okta-registration-api-token
+    USER_PROFILE_TOKEN=okta-user-profile-api-token
+    APP_SECRET=something-random
+```
 
 8. [AWS-SDK S3](https://aws.amazon.com/sdk-for-node-js/)
 
