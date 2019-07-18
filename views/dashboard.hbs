@@ -60,22 +60,23 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Date</th>
-                                <th>Hours (Month)</th>
-                                <th>Pounds Loss (Month)</th>
+                                <th>Since</th>
+                                <th>Hours (Total)</th>
+                                <th>Pounds Loss (Total)</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <tr>
                                 <td>You</td>
-                                <td>7/11/2019</td>
-                                <td>64</td>
-                                <td>10</td>
+                                <td id = "date"></td>
+                                <td id = "hours"></td>
+                                <td id = "pounds"></td>
+                             
                             </tr>
                             <tr>
                                 <td>Gabe</td>
-                                <td>7/11/2019</td>
+                                <td >2019-07-11</td>
                                 <td>60</td>
                                 <td>7</td>
                             </tr>
@@ -230,40 +231,7 @@
             });
     };
 
-    function displayAllPosts() {
-        $.get("api/posts").
-            then(function (data) {
-
-                console.log(data);
-                for (var i = 0; i < data.length; i++) {
-
-                    cb = function (i, userData) {
-                        var post = $("<li class='collection-item avatar'>");
-                        var imgId = "post-img" + i;
-                        var nameId = "post-name" + i;
-                        var contentId = "post-content" + i;
-
-                        post.append(`<img id='${imgId}' class='circle'>`);
-                        post.append(`<span id='${nameId}' class='title'></span>`);
-                        post.append(`<p id='${contentId}'>`);
-
-                        $(".collection").append(post);
-
-                        $("#" + imgId).attr('src', userData.profilePhoto);
-                        $("#" + nameId).text(userData.name);
-                        $("#" + contentId).text(data[i].content);
-
-
-                    }
-                    getUser(data[i].UserId, cb.bind(null, i));
-                }
-            });
-
-
-    };
-
-    
-
+   
     var Routine1 = ["3x5: Squat, Bench Press, Overhead Press", "Rest", "3x5: Squat, Bench Press, Deadlift", "Rest", "3x5: Squat, Bench Press, Overhead Press", "Rest", "Rest"];
     var Routine2 = ["Chest, Shoulders and Triceps", "Back and Biceps", "Rest", "Legs", "Rest", "Shoulders, chest, and Triceps", "Back and Bis", "Rest"];
     var Routine3 = ["Chest & Back", "Legs", "Shoulders & Arms", "Rest", " Chest, Shoulders, & Triceps", "Back & Biceps", " Legs"];
@@ -314,6 +282,7 @@
         for (var i = 0; i < 7; i++) {
             var dailyRoutine =
             {
+
                 dayOfTheWeek: i + 1,
                 routine: routine[i],
                 UserId: userId
@@ -332,10 +301,72 @@
     }
 
 
+
+  function displayUserStats() {
+           
+            $.get("/api/stats/" + userId, function (data) {
+
+                console.log(data);
+                console.log("in display", data);
+                console.log("weight", data[0].weight);
+                console.log("time", data[0].time);
+
+                var hours = 0;
+                var poundsLossed = (data[data.length - 1].poundsLossed);
+
+                var time = data[data.length - 1].time;
+                time = time.slice(0, 10);
+                $("#date").text(time);
+                $("#pounds").text(poundsLossed);
+
+                for (var i = 0; i < data.length; i++ ) {
+                    hours = data[i].hours + hours;
+                }
+
+                $("#hours").text(hours);
+            });
+        }
+
+ function displayAllPosts() {
+        $.get("api/posts").
+            then(function (data) {
+
+                console.log(data);
+                for (var i = 0; i < data.length; i++) {
+
+                    cb = function (i, userData) {
+                        var post = $("<li class='collection-item avatar'>");
+                        var imgId = "post-img" + i;
+                        var nameId = "post-name" + i;
+                        var contentId = "post-content" + i;
+
+                        post.append(`<img id='${imgId}' class='circle'>`);
+                        post.append(`<span id='${nameId}' class='title'></span>`);
+                        post.append(`<p id='${contentId}'>`);
+
+                        $(".collection").append(post);
+
+                        $("#" + imgId).attr('src', userData.profilePhoto);
+                        $("#" + nameId).text(userData.name);
+                        $("#" + contentId).text(data[i].content);
+
+
+                    }
+                    getUser(data[i].UserId, cb.bind(null, i));
+                }
+            });
+
+
+    };
+
+    
+   
+
     $(document).ready(function () {
         idFromEmail = JSON.stringify($("#navi").text());
         // getUserByEmail(idFromEmail);
         // console.log(idFromEmail);
+        displayUserStats();
 
         $(".routine").click(function(){
             routineIndex = $(this).attr("data-index");
@@ -367,6 +398,9 @@
         $("#send-post").on("click", (e) => {
             e.preventDefault();
 
+
+
+
             var contentToPost = $("#textarea1").val().trim();
             // if(!contentId) {
             //     alert()
@@ -377,15 +411,17 @@
             var postText = {
 
                 content: contentToPost,
-                userId: idFromEmail,
+                // userId: idFromEmail,
+                userId: userId
             };
+
 
             $.post("api/posts", postText).
                 then(function (data) {
 
                     console.log(data);
 
-                    alert("Adding post...");
+
                 });
             $(".collection").empty();
             displayAllPosts();

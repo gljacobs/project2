@@ -110,7 +110,7 @@
                                         </td>
                                         <td>
                                             <label>
-                                                <input type="checkbox" class="filled-in check" data-day= "0"/>
+                                                <input type="checkbox" class="filled-in check" data-day= "0" id="check1"/>
                                                 <span></span>
                                             </label>
 
@@ -127,7 +127,7 @@
                                         </td>
                                         <td>
                                             <label>
-                                                <input type="checkbox" class="filled-in check" data-day= "1"/>
+                                                <input type="checkbox" class="filled-in check" data-day= "1" id="check2"/>
                                                 <span></span>
                                             </label>
 
@@ -143,7 +143,7 @@
                                             </div>
                                         </td>
                                         <td> <label>
-                                                <input type="checkbox" class="filled-in check" data-day= "2"/>
+                                                <input type="checkbox" class="filled-in check" data-day= "2" id="check3"/>
                                                 <span></span>
                                             </label>
                                         </td>
@@ -158,7 +158,7 @@
                                             </div>
                                         </td>
                                         <td><label>
-                                                <input type="checkbox" class="filled-in check" data-day= "3"/>
+                                                <input type="checkbox" class="filled-in check" data-day= "3" id="check4"/>
                                                 <span></span>
                                             </label>
                                         </td>
@@ -173,7 +173,7 @@
                                             </div>
                                         </td>
                                         <td><label>
-                                                <input type="checkbox" class="filled-in check" data-day= "4"/>
+                                                <input type="checkbox" class="filled-in check" data-day= "4" id="check5"/>
                                                 <span></span>
                                             </label>
                                         </td>
@@ -188,7 +188,7 @@
                                             </div>
                                         </td>
                                         <td> <label>
-                                                <input type="checkbox" class="filled-in check" data-day= "5"/>
+                                                <input type="checkbox" class="filled-in check" data-day= "5" id="check6"/>
                                                 <span></span>
                                             </label>
                                         </td>
@@ -197,13 +197,13 @@
                                     <tr>
                                         <td>Sunday</td>
                                         <td>
-                                            <div class="input-field inline routine-info" id="day7">
+                                            <div class="input-field inline routine-info" id="day7" >
                                                 <!--  <input id="email_inline" type="email" class="validate">
                                                 <label for="email_inline">Routine Info</label> -->
                                             </div>
                                         </td>
                                         <td><label>
-                                                <input type="checkbox" class="filled-in check" data-day="6"/>
+                                                <input type="checkbox" class="filled-in check" data-day="6" id="check7"/>
                                                 <span></span>
                                             </label>
                                         </td>
@@ -471,7 +471,12 @@
         function displayUserRoutine(user) {
             $.get("/api/routines/" + userId, function (data) {
                 for (var i = 0; i < data.length; i++) {
+                    console.log("check", $("#check" + data[i].dayOfTheWeek).prop("checked"));
                     $("#day" + data[i].dayOfTheWeek).text(" " + data[i].routine + " ");
+                    if (data[i].completed === true)
+                    {
+                        $("#check" + data[i].dayOfTheWeek).attr("checked", "checked") ;
+                    }
                 }
             });
 
@@ -539,7 +544,7 @@
                 console.log(dailyRoutine);
 
                     $.ajax({
-                    url: "/api/routines/" + userId + "/" + (day+1),
+                    url: "/api/routines/complete/" + userId + "/" + (day+1),
                     type: 'PUT',    
                     data: dailyRoutine  
                     }).then(function(data) {
@@ -652,8 +657,6 @@
 
             var poundsLoss = initialWeight - weight;
             var bmi = weight / (initialHeight * initialHeight) * 703;
-
-
 
 
             var newStat =
