@@ -7,6 +7,7 @@ A way to plan your workout routines and meet new friends! Record your time worki
 ### Link to delopyed site
 
 https://gymate123.herokuapp.com/
+Couldn't get deployed link to work with heroku. Use localhost/3000
 
 ### Author
 
