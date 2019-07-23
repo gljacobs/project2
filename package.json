@@ -1,36 +1,32 @@
 {
-  "name": "simple-node-authentication",
-  "version": "0.0.0",
-  "private": true,
+  "name": "project2",
+  "version": "1.0.0",
+  "description": "A way to plan your workout routines and meet new friends! Record your time working out and weight loss to see progress and look up popular workout routines.",
+  "main": "app.js",
   "scripts": {
-    "dev": "nodemon node ./bin/www",
-    "test": "eslint . ./bin/www",
-    "start": "node ./bin/www"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gljacobs/project2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gljacobs/project2/issues"
+  },
+  "homepage": "https://github.com/gljacobs/project2#readme",
   "dependencies": {
-    "@okta/oidc-middleware": "^0.1.1",
-    "@okta/okta-sdk-nodejs": "^1.1.0",
-    "aws-sdk": "^2.493.0",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.6.9",
-    "dotenv": "^5.0.1",
-    "express": "~4.16.0",
+    "aws-sdk": "^2.497.0",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
     "express-fileupload": "^1.1.5",
-    "express-session": "^1.15.6",
-    "hbs": "~4.0.1",
-    "http-errors": "~1.6.2",
-    "lodash": "^4.17.5",
-    "morgan": "~1.9.0",
-    "mysql2": "^1.6.5",
-    "nodemon": "^1.17.5",
-    "sequelize": "^5.10.1"
-  },
-  "devDependencies": {
-    "eslint": "^4.19.1",
-    "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-import": "^2.10.0",
-    "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "express-session": "^1.16.2",
+    "hbs": "^4.0.4",
+    "http-errors": "^1.7.3",
+    "morgan": "^1.9.1"
   }
 }

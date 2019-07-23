@@ -1,98 +1,19 @@
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Gymate</title>
-    {{!-- <link rel="shortcut icon" type="image/png" href="PERSON.png"/> --}}
-    <link rel="shortcut icon" href="/PERSON.ico" type="image/x-icon">
-    <link rel="icon" href="/PERSON.ico" type="image/x-icon">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="PERSON.png">
-    <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="survey.css">
-    <link href="https://fonts.googleapis.com/css?family=Nobile:700&display=swap" rel="stylesheet">
+<div class="container" id="main">
+  <div class="card-panel black">
+    <div class="row" style="text-align: center">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <img src="PERSON.png" style="width:100px; height:100px">
+
+      <h2 style="font-family: 'Nobile', sans-serif; color:white">Commit to be fit.</h2>
+
+      <button type="button" id="authLogin" class="btn btn-primary">Login</button>
+      <button type="button" href="/register" id="authSignUp" class="btn btn-primary">Sign Up</button>
 
 
-</head>
+    </div>
 
-<body style="background-image: url('landing-gymate.jpg'); background-size: 100%;">
+  </div>
 
-    <nav role="navigation" class="nav">
-        <div class="nav-wrapper container">
-            <a id="logo-container" href="survey.html" class="brand-logo">
-                <img src="gm-white.png" id="logo" >
-            </a>
-            <ul class="right">{{#if user}}
+</div>
 
-                {{/if}}</ul>
-            <ul class="right">
-                {{#if user}}
-                <a style="color:red" href="/logout">Sign out</a>
-                {{else}}
-                <a style="color:red" href="/login">Sign in</a>
-                {{/if}}
-            </ul>
-            <ul class="right">
-                <a style="color: red" href="/dashboard">Home</a>
-
-            </ul>
-        </div>
-    </nav>
-
-    <br>
-
-          
-
-    <div class="container" id="main">
-      <div class="card-panel black">
-        <div class="row" style="text-align: center">
-
-            <img src="PERSON.png" style="width:100px; height:100px">
-          
-            <h2 style="font-family: 'Nobile', sans-serif; color:white">Commit to be fit.</h2>
-      
-            {{!-- <p>
-                        If you don't have an account, you can
-                        <a href="/register"><button>register for free</button></a>.
-                      </p> --}}
-      
-          
-          
-            <p>
-              {{#if userinfo}}
-              <a href="/dashboard">click here</a>.
-              {{else}}
-              <a class="btn-large waves-light waves-effect" style="background-color: red !important" href="/register">Sign
-                Up</a>.
-            </p>
-            <p>
-              <a href="/reset-password" style="color: red">Forgot Password</a>
-              {{/if}}
-            </p>
-          
-        </div>
-
-      </div>
-
-      </div>
-
-<footer>
-    <nav role="navigation" class="footer nav">
-        <div class="nav-wrapper container">
-            <div class="container center">
-                <footer>© 2019 Copyright</footer>
-            </div>
-        </div>
-    </nav>
-    </footer>
-
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</body>
-
-</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

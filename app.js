@@ -5,27 +5,17 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const session = require('express-session')
-const { ExpressOIDC } = require('@okta/oidc-middleware')
 
-const okta = require('./okta')
 const indexRouter = require('./routes/index')
 const dashboardRouter = require('./routes/dashboard')
 const profileRouter = require('./routes/profile')
 const registrationRouter = require('./routes/register')
-const resetPassword = require('./routes/reset-password')
 
+var db = require("./models");
 
 const app = express()
 const fileUpload = require("express-fileupload");
 app.use(fileUpload());
-
-const oidc = new ExpressOIDC({
-  issuer: `${process.env.ORG_URL}/oauth2/default`,
-  client_id: process.env.CLIENT_ID,
-  client_secret: process.env.CLIENT_SECRET,
-  redirect_uri: `${process.env.HOST_URL}/authorization-code/callback`,
-  scope: 'openid profile',
-})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -43,14 +33,15 @@ app.use(session({
   saveUninitialized: false,
 }))
 
-app.use(oidc.router)
-app.use(okta.middleware)
+var PORT = process.env.PORT || 8080;
+
+
+
 
 app.use('/', indexRouter)
-app.use('/dashboard', oidc.ensureAuthenticated(), dashboardRouter)
-app.use('/profile', oidc.ensureAuthenticated(), profileRouter)
+app.use('/dashboard', dashboardRouter)
+app.use('/profile', profileRouter)
 app.use('/register', registrationRouter)
-app.use('/reset-password', resetPassword)
 app.get('/logout', (req, res) => {
   req.logout()
   res.redirect('/')
@@ -72,5 +63,11 @@ app.use(function (err, req, res, next) {
   res.render('error')
 })
 
-module.exports = { app, oidc }
+db.sequelize.sync({ force: true }).then(function() {
+  app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+    });
+  });
+
+module.exports = { app }
 

@@ -1,12 +1,9 @@
-const okta = require('@okta/okta-sdk-nodejs')
+
 const express = require('express')
 
 const router = express.Router()
 
-const client = new okta.Client({
-  orgUrl: process.env.ORG_URL,
-  token: process.env.REGISTRATION_TOKEN,
-})
+
 
 const title = 'Create an account'
 

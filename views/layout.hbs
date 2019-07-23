@@ -1,25 +1,136 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>{{title}}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    {{!-- <header>
-      <h1>hi</h1>
-      {{#if user}}
-        <a href="/profile">
-          Signed in as {{user.profile.firstName}} {{user.profile.lastName}}
-        </a>
-      {{/if}}
-      {{#if user}}
-        <a href="/logout">Sign out</a>
-      {{else}}
-        <a href="/login">Sign in</a>
-      {{/if}}
-    </header> --}}
-    <main>
-      {{{body}}}
-    </main>
-  </body>
+
+<head>
+  <title>{{title}}</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="apple-touch-icon" sizes="57x57" href="favicons/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="favicons/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="favicons/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="favicons/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="favicons/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="favicons/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="favicons/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="favicons/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="favicons/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="favicons/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
+  <link rel="manifest" href="favicons/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="favicons/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" type="text/css" href="survey.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-auth.js"></script>
+</head>
+
+<body>
+  <nav role="navigation red" class="nav">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="#" class="brand-logo">
+        <img src="gm-white.png" id="logo">
+      </a>
+      <button type="button" id="authLogin" class="btn btn-primary">Login</button>
+      <button type="button" id="authSignUp" class="btn btn-primary">Sign Up</button>
+    </div>
+  </nav>
+  {{{body}}}
+  <footer>
+    <nav role="navigation" class="footer nav">
+      <div class="nav-wrapper container">
+        <div class="container center">
+          <footer>© 2019 Copyright</footer>
+        </div>
+      </div>
+    </nav>
+  </footer>
+</body>
+<script>
+  var btnSignUp = $("#authSignUp");
+  var btnLogin = $("#authLogin");
+  var btnLogOut = $("#sign-out");
+
+  var txtEmail = $("#exampleInputEmail1");
+  var txtPassword = $("#exampleInputPassword1");
+  var authPrompt = $("#authPrompt");
+
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBEx4a4aZt3-9gm_1u-_51qB3AZ26lYOB0",
+    authDomain: "gymate.firebaseapp.com",
+    databaseURL: "https://gymate.firebaseio.com",
+    projectId: "gymate",
+    storageBucket: "",
+    messagingSenderId: "56247456357",
+    appId: "1:56247456357:web:f02a75760bd1122b"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.initializeApp(firebaseConfig);
+
+  const auth = firebase.auth();
+  const database = firebase.database();
+
+  btnSignUp.on('click', () => {
+    const email = txtEmail.val().trim();
+    const pass = txtPassword.val().trim();
+
+    auth.createUserWithEmailAndPassword(email, pass).then(user => {
+      database.ref("/users").child(auth.currentUser.uid).update({
+        email: user.email,
+        notes: ["Welcome to your notes!"],
+        dateAdded: firebase.database.ServerValue.TIMESTAMP
+      })
+    }).catch(err => {
+      console.log(err);
+      if (err.code === "auth/weak-password") authPrompt.text(err.message)
+      else if (err.code === "auth/email-already-in-use") authPrompt.text("Email already in use!")
+    })
+
+  })
+
+  btnLogin.on('click', () => {
+    const email = txtEmail.val().trim();
+    const pass = txtPassword.val().trim();
+    auth.signInWithEmailAndPassword(email, pass).catch(err => {
+      console.log(err);
+      if (err.code === "auth/user-not-found") authPrompt.text("New email detected. Make sure you have registered first!")
+      else if (err.code === "auth/wrong-password") authPrompt.text("Invalid password.")
+      else if (err.code === "auth/invalid-email") authPrompt.text("Invalid email format.")
+      else if (err.code === "auth/wrong-password") authPrompt.text("Invalid password.")
+    });
+  })
+
+  btnLogOut.on('click', () => {
+    if (auth.currentUser) {
+      auth.signOut();
+      console.log('logged out')
+    }
+    else {
+      $("#exampleModal").modal("show")
+    }
+  })
+
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      btnLogOut.text("Logout")
+      $("#exampleModal").modal('hide');
+      authPrompt.text("Planner App")
+      console.log("User has now logged in.");
+
+
+    } else {
+      btnLogOut.text("Login")
+      console.log("User has now logged out.");
+      authPrompt.text("Please Log in!")
+
+    }
+  })
+  <script src="https://www.gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
+</script>
+
 </html>
