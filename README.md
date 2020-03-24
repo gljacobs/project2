@@ -11,7 +11,7 @@ Couldn't get deployed link to work with heroku. Use localhost/3000
 
 ### Author
 
-Author : [Jacobs](https://github.com/gljacobs)
+Author : [Gabriel](https://github.com/gljacobs)
 
 Author : [Chloe](https://github.com/chloezhouny)
 
